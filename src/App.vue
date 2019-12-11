@@ -63,12 +63,15 @@ export default {
             let s = skrollr.init({
                 smoothScrolling: true
             })
-            console.log('s', s)
-            this.bannerHeight = document.querySelector('.main-banner').offsetHeight
-            this.placeholderHeihgt = document.querySelector('.main-container').offsetHeight
             document.addEventListener('scroll', () => {
                 this.scrollTop = s.getScrollTop()
             })
+            this.bannerHeight = document.querySelector('.main-banner').offsetHeight
+            this.placeholderHeihgt = document.querySelector('.main-container').offsetHeight
+            window.onresize = () => {
+                this.bannerHeight = document.querySelector('.main-banner').offsetHeight
+                this.placeholderHeihgt = document.querySelector('.main-container').offsetHeight
+            }
         })
     }
 }
