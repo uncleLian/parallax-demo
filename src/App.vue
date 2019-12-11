@@ -7,10 +7,10 @@
         <div class="main-container" :class="scrollTop > bannerHeight ? 'show' : 'fixed'">
             <section id="section1">
                 <div class="c1">
-                    <img src="~@/assets/img/c1.png" data-0="transform[swing]: translate3d(0, -20%, 0);" data--100p-top-bottom="transform[swing]: translate3d(0, 0%, 0);">
+                    <img src="https://www1.djicdn.com/dps/eaa83b0faa6c24fbd917d7885bec683f.png" data-0="transform[swing]: translate3d(0, -20%, 0);" data--100p-top-bottom="transform[swing]: translate3d(0, 0%, 0);">
                 </div>
                 <div class="c2">
-                    <img src="~@/assets/img/c2.png" data-0="transform[swing]: translate3d(0, 40%, 0);" data--100p-top-bottom="transform[swing]: translate3d(0, -20%, 0);">
+                    <img src="https://www1.djicdn.com/dps/493bbfbf0610fabef8fa84a47a6fda85.png" data-0="transform[swing]: translate3d(0, 40%, 0);" data--100p-top-bottom="transform[swing]: translate3d(0, -20%, 0);">
                 </div>
                 <div class="c3">
                     <img src="https://www1.djicdn.com/dps/424a2c2500a1b4bbdd6b68bc597ad0aa.svg">
