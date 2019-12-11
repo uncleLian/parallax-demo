@@ -10,7 +10,7 @@
                     <img src="~@/assets/img/c1.png" data-0="transform[swing]: translate3d(0, -20%, 0);" data--100p-top-bottom="transform[swing]: translate3d(0, 0%, 0);">
                 </div>
                 <div class="c2">
-                    <img src="~@/assets/img/c2.png" data-0="transform[swing]: translate3d(0, 30%, 0);" data--100p-top-bottom="transform[swing]: translate3d(0, 0%, 0);">
+                    <img src="~@/assets/img/c2.png" data-0="transform[swing]: translate3d(0, 40%, 0);" data--100p-top-bottom="transform[swing]: translate3d(0, -20%, 0);">
                 </div>
                 <div class="c3">
                     <img src="https://www1.djicdn.com/dps/424a2c2500a1b4bbdd6b68bc597ad0aa.svg">
@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </section>
-            <section class="section2" style="background: blue">
+            <section id="section2">
                 <h1 style="margin-top: 0; padding-top: 20px;">Bottom</h1>
             </section>
         </div>
@@ -93,7 +93,7 @@ export default {
     }
     .main-banner {
         position: relative;
-        background: yellow;
+        background: #ff0;
         z-index: 2;
     }
     .main-placeholder {
@@ -110,8 +110,8 @@ export default {
         &.fixed {
             position: fixed;
             top: 0;
-            left: 0;
             right: 0;
+            left: 0;
         }
     }
     #section1 {
@@ -119,14 +119,14 @@ export default {
         height: 1080px;
         .c1 {
             position: absolute;
-            top: 0;
+            top: 5%;
             left: 335px !important;
             width: 592px;
             z-index: 30;
         }
         .c2 {
             position: absolute;
-            top: 40%;
+            top: 50%;
             left: initial !important;
             right: 310px !important;
             width: 288px;
@@ -134,7 +134,7 @@ export default {
         }
         .c3 {
             position: absolute;
-            top: 43%;
+            top: 50%;
             transform: translate3d(0, -50%, 0);
             z-index: 20;
             width: 100%;
@@ -168,6 +168,9 @@ export default {
                 }
             }
         }
+    }
+    #section2 {
+        background: #79f;
     }
 }
 </style>
