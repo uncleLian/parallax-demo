@@ -7,12 +7,11 @@ module.exports = {
     // 如果部署项目时不是根目录，请参照官网修改publicPath值
     // https://cli.vuejs.org/zh/config/#publicpath
     publicPath: '/',
-    outputDir: 'dist',
+    outputDir: 'docs',
     lintOnSave: true,
     productionSourceMap: false,
     css: {
         sourceMap: false,
-        modules: false,
         loaderOptions: {
             stylus: {
                 // 全局引入index.styl文件
