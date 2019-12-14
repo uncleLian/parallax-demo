@@ -8,10 +8,10 @@
             <section id="section1">
                 <div class="section-container">
                     <div class="c1">
-                        <img src="https://www1.djicdn.com/dps/eaa83b0faa6c24fbd917d7885bec683f.png" data-0="transform[swing]: translate3d(0, -20%, 0);" data--100p-top-bottom="transform[swing]: translate3d(0, 0%, 0);">
+                        <img src="https://www1.djicdn.com/dps/eaa83b0faa6c24fbd917d7885bec683f.png" data-0="transform[quadratic]: translate3d(0, -25%, 0);" data-1600="transform[quadratic]: translate3d(0, 0%, 0);">
                     </div>
                     <div class="c2">
-                        <img src="https://www1.djicdn.com/dps/493bbfbf0610fabef8fa84a47a6fda85.png" data-0="transform[swing]: translate3d(0, 30%, 0);" data--100p-top-bottom="transform[swing]: translate3d(0, -20%, 0);">
+                        <img src="https://www1.djicdn.com/dps/493bbfbf0610fabef8fa84a47a6fda85.png" data-0="transform[quadratic]: translate3d(0, 30%, 0);" data-1650="transform[quadratic]: translate3d(0, -20%, 0);">
                     </div>
                     <div class="c3">
                         <img src="https://www1.djicdn.com/dps/424a2c2500a1b4bbdd6b68bc597ad0aa.svg">
@@ -53,6 +53,23 @@
                     </div>
                 </div>
             </section>
+            <section id="section3" data-3000="background-position-y[quadratic]: 0px" data-4100="background-position-y[quadratic]: -100px;">
+                <div class="section-container">
+                    <div class="s3-content">
+                        <div class="s3-title-wrapper">
+                            <h2 class="s3-title">增稳非凡，无惧抖动</h2>
+                            <p class="s3-desc">全新 RockSteady 增稳技术采用 DJI 大疆最新的智能抖动补偿算法，可自主检测机身各个方向的抖动并进行有效抵消，保持画面稳定。独特的滤波算法在滤除抖动的同时，还能保留相机的转向运动，带来稳定流畅的拍摄画面。</p>
+                        </div>
+                        <div class="s3-video">
+                            <span class="video-desc desc1">非 RockSteady</span>
+                            <span class="video-desc desc2">RockSteady</span>
+                            <video id="s3-video" type="video/mp4" src="https://www1.djicdn.com/assets/uploads/367aeda57cc2ddasd/3f1df242da2cb0aeb81cef1469694eb8.mp4" poster="https://www1.djicdn.com/dps/ef8e9d029bb05daa2e53f5ca8564b46b.jpg" muted>
+                            </video>
+                            <div class="s3-reload-btn" v-show="s3ReloadBtn" @click="handleVideoReload('#s3-video')"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <section id="bottom">
                 <h1 style="margin-top: 0; padding-top: 20px;">Bottom</h1>
             </section>
@@ -64,18 +81,25 @@ export default {
     name: 'app',
     data() {
         return {
+            s: null,
+            videoList: [
+                {
+                    id: '#s3-video',
+                    reloadBtn: 's3ReloadBtn',
+                    start: 3800,
+                    end: 4600
+                }
+            ],
             bannerHeight: 0,
             placeholderHeihgt: 0,
-            scrollTop: 0
+            scrollTop: 0,
+            s3ReloadBtn: false
         }
     },
     mounted() {
         require(['@/utils/skrollr.min.js'], (skrollr) => {
-            let s = skrollr.init({
+            this.s = skrollr.init({
                 forceHeight: false
-            })
-            document.addEventListener('scroll', () => {
-                this.scrollTop = s.getScrollTop()
             })
             this.bannerHeight = document.querySelector('.main-banner').offsetHeight
             this.placeholderHeihgt = document.querySelector('.main-container').offsetHeight
@@ -84,7 +108,36 @@ export default {
                 this.placeholderHeihgt = document.querySelector('.main-container').offsetHeight
                 s.refresh()
             }
+            document.addEventListener('scroll', () => {
+                this.scrollTop = this.s.getScrollTop()
+                this.handleVideoPlay()
+            })
         })
+    },
+    methods: {
+        handleVideoPlay(videoList) {
+            this.videoList.forEach(item => {
+                if (this.scrollTop >= item.start && this.scrollTop <= item.end) {
+                    const video = document.querySelector(item.id)
+                    if (video) {
+                        video.play()
+                        video.onplay = () => {
+                            this[item.reloadBtn] = false
+                        }
+                        video.onended = () => {
+                            this[item.reloadBtn] = true
+                        }
+                    }
+                }
+            })
+        },
+        handleVideoReload(id) {
+            const video = document.querySelector(id)
+            if (video) {
+                video.load()
+                video.play()
+            }
+        }
     }
 }
 </script>
@@ -214,6 +267,70 @@ export default {
                 color: #fff;
                 font-size: 16px;
                 line-height: 24px;
+            }
+        }
+    }
+    #section3 {
+        background-image: url('https://www1.djicdn.com/dps/c57cf4857eeadff830d014fde9a340ca.jpg');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 2760px 1543px;
+        background-position-y: 0;
+        height: 1400px;
+        .s3-content {
+            position: absolute;
+            top: 600px;
+            width: 100%;
+            .s3-title-wrapper {
+                width: 640px;
+                margin: 0 auto 32px;
+                .s3-title {
+                    color: rgba(0, 0, 0, 0.85);
+                    font-size: 32px;
+                    font-weight: 500;
+                    line-height: 48px;
+                    vertical-align: middle;
+                    word-wrap: break-word;
+                    text-align: center;
+                    margin: 0;
+                }
+                .s3-desc {
+                    color: rgba(0, 0, 0, 0.65);
+                    font-size: 16px;
+                    line-height: 24px;
+                    vertical-align: middle;
+                    word-wrap: break-word;
+                }
+            }
+            .s3-video {
+                position: relative;
+                width: 1200px;
+                height: 450px;
+                margin: 0 auto;
+                .video-desc {
+                    position: absolute;
+                    font-size: 24px;
+                    line-height: 33px;
+                    color: #fff;
+                    top: 16px;
+                    &.desc1 {
+                        left: 32px;
+                    }
+                    &.desc2 {
+                        right: 32px;
+                    }
+                }
+                .s3-reload-btn {
+                    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0MHB4IiB2aWV3Qm94PSIwIDAgNDAgNDAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUyLjIgKDY3MTQ1KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5pY29uX3JlcGxheTwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPgogICAgICAgIDxwYXRoIGQ9Ik0yNy43NTQ2MTk5LDEyLjUgTDI2LjM2ODMzMzMsMTIuNSBDMjYuMTY3OTUzMiwxMi41IDI2LjAwODI3NDksMTIuNjY3ODQxOCAyNi4wMTc4NjU1LDEyLjg2ODM3ODkgTDI2LjEzMzgzMDQsMTUuMjkyOTU5IEMyNC44MDM4MzA0LDEzLjcyNzUwOTggMjIuODIzMDExNywxMi43MzQzNzUgMjAuNjEwNDA5NCwxMi43MzQzNzUgQzE2LjYxNDQ3MzcsMTIuNzM0Mzc1IDEzLjM1NTk2NDksMTYuMDAxNzM4MyAxMy4zNTg5MTgxLDIwLjAwNTQ3ODUgQzEzLjM2MTg3MTMsMjQuMDE1NjY0MSAxNi42MDczMzkyLDI3LjI2NTYyNSAyMC42MTAzODAxLDI3LjI2NTYyNSBDMjIuNDc5NTYxNCwyNy4yNjU2MjUgMjQuMTgzNTM4LDI2LjU1NzAyMTUgMjUuNDY5Mzg2LDI1LjM5MzMyMDMgQzI1LjYxODg4ODksMjUuMjU4MDI3MyAyNS42MjU5MzU3LDI1LjAyNTMyMjMgMjUuNDgzNDc5NSwyNC44ODI1ODc5IEwyNC40OTAxNzU0LDIzLjg4NzM0MzcgQzI0LjM1OTU5MDYsMjMuNzU2NTAzOSAyNC4xNDk4MjQ2LDIzLjc0OTE1MDQgMjQuMDExMjI4MSwyMy44NzE0MzU1IEMyMy4xMDQ3NjYxLDI0LjY3MTMyODEgMjEuOTE0NjQ5MSwyNS4xNTYyNSAyMC42MTAzODAxLDI1LjE1NjI1IEMxNy43NjYzMTU4LDI1LjE1NjI1IDE1LjQ2NDE4MTMsMjIuODUwMTE3MiAxNS40NjQxODEzLDIwIEMxNS40NjQxODEzLDE3LjE1MDM4MDkgMTcuNzY1ODE4NywxNC44NDM3NSAyMC42MTAzODAxLDE0Ljg0Mzc1IEMyMi4zOTA4NDgsMTQuODQzNzUgMjMuOTU4NTA4OCwxNS43NDc3OTMgMjQuODgyMjgwNywxNy4xMjMwNDY5IEwyMS45MTM3MTM1LDE2Ljk4MDUxNzYgQzIxLjcxMzU2NzMsMTYuOTcwOTA4MiAyMS41NDYwNTI2LDE3LjEzMDg5ODQgMjEuNTQ2MDUyNiwxNy4zMzE2Njk5IEwyMS41NDYwNTI2LDE4LjcyMDY2NDEgQzIxLjU0NjA1MjYsMTguOTE0ODE0NSAyMS43MDMxNTc5LDE5LjA3MjIyNjYgMjEuODk2OTI5OCwxOS4wNzIyMjY2IEwyNy43NTQ2MTk5LDE5LjA3MjIyNjYgQzI3Ljk0ODM5MTgsMTkuMDcyMjI2NiAyOC4xMDU0OTcxLDE4LjkxNDgxNDUgMjguMTA1NDk3MSwxOC43MjA2NjQxIEwyOC4xMDU0OTcxLDEyLjg1MTU2MjUgQzI4LjEwNTQ5NzEsMTIuNjU3NDEyMSAyNy45NDgzOTE4LDEyLjUgMjcuNzU0NjE5OSwxMi41IFoiIGlkPSJwYXRoLTEiPjwvcGF0aD4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSJpY29uX3JlcGxheSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGNpcmNsZSBpZD0iTWFzay0yIiBmaWxsPSIjMDAwMDAwIiBvcGFjaXR5PSIwLjMiIGN4PSIyMCIgY3k9IjIwIiByPSIyMCI+PC9jaXJjbGU+CiAgICAgICAgPG1hc2sgaWQ9Im1hc2stMiIgZmlsbD0id2hpdGUiPgogICAgICAgICAgICA8dXNlIHhsaW5rOmhyZWY9IiNwYXRoLTEiPjwvdXNlPgogICAgICAgIDwvbWFzaz4KICAgICAgICA8dXNlIGlkPSJDb21iaW5lZC1TaGFwZSIgZmlsbD0iI0ZGRkZGRiIgeGxpbms6aHJlZj0iI3BhdGgtMSI+PC91c2U+CiAgICA8L2c+Cjwvc3ZnPg==');
+                    position: absolute;
+                    width: 48px;
+                    height: 48px;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    right: 24px;
+                    bottom: 24px;
+                    cursor: pointer;
+                }
             }
         }
     }
